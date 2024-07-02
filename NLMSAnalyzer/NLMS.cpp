@@ -10,7 +10,7 @@ CNLMS::~CNLMS()
 {
 }
 
-void CNLMS::Tick(double s)
+double CNLMS::Tick(double s)
 {
 	int	   i;
 	double E;
@@ -42,5 +42,31 @@ void CNLMS::Tick(double s)
 	{
 		X[i] = X[i-1];
 	}
-	X[0] = s;
+
+	X[0]	= s;
+	m_res	= Y;
+	return	Y;
+}
+
+bool CNLMS::Predict(int num)
+{
+	double res;
+	int i;
+	if (num > N)
+	{
+		return false;
+	}
+
+	memcpy(PX,X,N*sizeof(double));
+	memcpy(PW,W,N*sizeof(double));
+	memset(PR,0,N*sizeof(double));
+	res = m_res;
+	for (i = 0; i < num; i++)
+	{
+		res		= Tick(res);
+		PR[i]	= res;
+	}
+	memcpy(X, PX, N * sizeof(double));
+	memcpy(W, PW, N * sizeof(double));
+	return true;
 }
