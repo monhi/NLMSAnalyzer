@@ -1,3 +1,3 @@
-# Normalized Least mean square algorithm
-I try to use this algorithm for predicting the output of a signal based on previous samples of it.
-It has a lot of applications
+# Normalized Least Mean Square algorithm
+I use this algorithm to predict a signal's output based on previous samples of it.
+It has a lot of applications in signal processing.
