@@ -6,24 +6,44 @@ window.onload = function () {
 
 var dps = []; // dataPoints
 var dis = [];
+
+function toogleDataSeries(e) 
+{
+	if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) 
+	{
+		e.dataSeries.visible = false;
+	} 
+	else 
+	{
+		e.dataSeries.visible = true;
+	}
+	e.chart.render();
+}
+
 var chart = new CanvasJS.Chart("chartContainer", {
 	title :{
 		text: "Predicted Data"
 	},
+	legend: {
+			cursor: "pointer",
+			itemclick: toogleDataSeries
+	},	
 	data: [{
 		type: "line",
+		showInLegend: true,
+		name: "Predicted data",
+		markerType: "circle",
+		color: "#5dde40",
 		dataPoints: dps
 	},
 	{
 		type: "line",
 		showInLegend: true,
-		name: "TenkanSen",
+		name: "Input data",
 		markerType: "square",
 		color: "#F08080",
 		dataPoints: dis
 	}
-	
-	
 	]
 });
 
@@ -60,11 +80,13 @@ var updateChart = function()
 		xVal++;
 	}
 	
-	if (dis.length > dataLength)
+	if (dis.length > count)
 	{
 		dis.shift();
 	}	
 	chart.render();
+	
+
 };
 
 updateChart();
