@@ -19,6 +19,7 @@ public:
 				 CNLMS();
 				~CNLMS();
 	double		 Tick(double s);
+	double		 PredictedTick(double s);
 	bool		 Predict(int num);
 	double*		 GetResult() { return &PR[0]; }
 };

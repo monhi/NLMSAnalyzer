@@ -48,26 +48,46 @@ double CNLMS::Tick(double s)
 	return	  Y;
 }
 
+double CNLMS::PredictedTick(double s)
+{
+	int	   i;
+	double Y = 0;
+
+
+	for (i = 0; i < N; i++)
+	{
+		Y += (PW[i] * PX[i]);
+	}
+
+	for (i = N - 1; i > 0; i--)
+	{
+		PX[i] = PX[i - 1];
+	}
+
+	PX[0]	= Y;
+	return	  Y;
+}
+
+
 bool CNLMS::Predict(int num)
 {
 	double res;
 	int i;
-
+	//////////////////////////////
 	if (num > N)
 	{
 		return false;
 	}
-
+	//////////////////////////////
 	memcpy(PX,X,N*sizeof(double));
 	memcpy(PW,W,N*sizeof(double));
 	memset(PR,0,N*sizeof(double));
-	res = m_res;
+	//////////////////////////////
+	res	= m_res;
 	for (i = 0; i < num; i++)
 	{
-		res		= Tick(res);
+		res		= PredictedTick(res);
 		PR[i]	= res;
 	}
-	memcpy(X, PX, N * sizeof(double));
-	memcpy(W, PW, N * sizeof(double));
 	return true;
 }
