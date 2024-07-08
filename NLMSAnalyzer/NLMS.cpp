@@ -32,7 +32,7 @@ double CNLMS::Tick(double s)
 	if ( stepSize > 0 )
 	{
 		stepSize = 1 / stepSize;
-		for (i=0; i<N; i++)
+		for (i=0; i < N; i++)
 		{
 			W[i] = W[i] + (stepSize * E * X[i]);
 		}
@@ -45,13 +45,14 @@ double CNLMS::Tick(double s)
 
 	X[0]	= s;
 	m_res	= Y;
-	return	Y;
+	return	  Y;
 }
 
 bool CNLMS::Predict(int num)
 {
 	double res;
 	int i;
+
 	if (num > N)
 	{
 		return false;
